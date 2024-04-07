@@ -1,0 +1,34 @@
+body {
+    background-image: url('../images/body.svg');
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+
+}
+
+h1 {
+
+    color: #673AB7;
+}
+
+.home {
+    min-height: 100vh;
+}
+
+.win {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    /* Ensure it's on top of other content */
+    overflow: hidden;
+    /* Prevent any content overflow */
+}
+
+.win img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensure the image covers the entire area */
+}

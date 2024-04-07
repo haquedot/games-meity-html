@@ -1,0 +1,14 @@
+
+.custom-card {
+    max-width: 400px;
+
+}
+
+.custom-card img {
+    width: 100%;
+}
+
+.custom-card h4 {
+    background-color: #FF8159;
+    margin-top: -32px;
+}

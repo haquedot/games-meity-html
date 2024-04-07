@@ -1,0 +1,60 @@
+.modal-dialog {
+  max-width: 350px;
+
+}
+
+.modal-content {
+  border-radius: 12px;
+
+}
+
+
+.bi-pause-fill,
+.bi-caret-right-fill {
+  color: #673AB7;
+}
+
+.card:hover {
+  cursor: pointer;
+  border-color: #00a2ff;
+}
+
+
+.custom_btn {
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  background-color: #673AB7;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Adding transition effect */
+
+}
+
+.custom_btn:hover {
+  background-color: #512b94;
+}
+
+.main_div h3 {
+  margin: auto;
+  width: fit-content;
+}
+
+.main_div .card {
+  transition: box-shadow 0.3s ease;
+
+}
+
+.main_div .card:hover {
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.end_div{
+  min-height: 100vh;
+}

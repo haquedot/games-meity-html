@@ -1,0 +1,18 @@
+.custom-card {
+    max-width: 400px;
+    transition: box-shadow 0.3s ease;
+
+}
+
+.custom-card:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.custom-card img {
+    width: 100%;
+}
+
+.custom-card h4 {
+    background-color: #673AB7;
+    margin-top: -32px;
+}
