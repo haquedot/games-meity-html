@@ -1,7 +1,7 @@
-var cardCount = parseInt(localStorage.getItem('cardCount')) || 2;
-var heartsCount = parseInt(localStorage.getItem('heartsCount')) || 3;
-var correctScore = parseInt(localStorage.getItem('correctScore')) || 0;
-var wrongScore = parseInt(localStorage.getItem('wrongScore')) || 0;
+var cardCount = 2;
+var heartsCount = 3;
+var correctScore = 0;
+var wrongScore = 0;
 var flag = 0;
 
 window.addEventListener('beforeunload', function () {
@@ -10,6 +10,33 @@ window.addEventListener('beforeunload', function () {
   localStorage.setItem('correctScore', correctScore.toString());
   localStorage.setItem('wrongScore', wrongScore.toString());
 });
+
+window.addEventListener('load', function () {
+  if (localStorage.getItem('cardCount')) {
+    cardCount = parseInt(localStorage.getItem('cardCount'));
+  }
+  if (localStorage.getItem('heartsCount')) {
+    heartsCount = parseInt(localStorage.getItem('heartsCount'));
+  }
+  if (localStorage.getItem('correctScore')) {
+    correctScore = parseInt(localStorage.getItem('correctScore'));
+  }
+  if (localStorage.getItem('wrongScore')) {
+    wrongScore = parseInt(localStorage.getItem('wrongScore'));
+  }
+
+  generateHearts();
+  correctCount.innerHTML = correctScore;
+  wrongCount.innerHTML = wrongScore;
+  generateCards();
+});
+
+// window.addEventListener('beforeunload', function () {
+//   localStorage.setItem('cardCount', cardCount.toString());
+//   localStorage.setItem('heartsCount', heartsCount.toString());
+//   localStorage.setItem('correctScore', correctScore.toString());
+//   localStorage.setItem('wrongScore', wrongScore.toString());
+// });
 
 
 function audios() {
@@ -31,7 +58,7 @@ function audios() {
   resumeButton.addEventListener("click", function () {
     resumeAudio.play();
   });
-  restartButton.addEventListener("click", function () {
+  restartButton.addEventListener("mouseenter", function () {
     restartAudio.play();
   });
 }
@@ -49,7 +76,7 @@ function pauseClicked() {
     icon.classList.add('bi-pause-fill');
   }
 }
-
+// fruits
 const fruits = [
   { name: 'apple', color: 'red', image: 'apple.jpg' },
   { name: 'banana', color: 'yellow', image: 'banana.jpg' },
@@ -73,27 +100,23 @@ function shuffleArray(array) {
 const followWhich = document.getElementById('followWhich')
 const end = document.getElementById('end')
 
-function counters() {
-  flag = 0;
-  cardCount = 2;
-  heartsCount = 3;
-  correctScore = 0;
-  wrongScore = 0;
-  generateHearts();
-  pauseClicked();
-}
+// function counters() {
+//   flag = 0;
+//   cardCount = 2;
+//   heartsCount = 3;
+//   correctScore = 0;
+//   wrongScore = 0;
+//   generateHearts();
+//   pauseClicked();
+// }
+
 function home() {
-  counters();
+  resetLocalStorageAndCounters();
 }
 
 function restart() {
-  if (heartsCount == 0 || flag == 5) {
-    end.classList.add('d-none');
-    followWhich.classList.remove('d-none');
-    counters();
-    return;
-  }
-  counters();
+  resetLocalStorageAndCounters();
+  location.reload();
 }
 
 function generateHearts() {
@@ -107,8 +130,20 @@ function generateHearts() {
   }
 }
 
+const correctCount = document.getElementById('correctCount');
+const wrongCount = document.getElementById('wrongCount');
+const finalCorrect = document.getElementById('finalCorrect');
+const finalWrong = document.getElementById('finalWrong');
+const winGif = document.getElementById('winGif');
 
 function win() {
+  winGif.classList.remove('d-none')
+
+  setTimeout(() => {
+    winGif.classList.add('d-none')
+  }, 4000)
+  finalCorrect.innerHTML = `${correctScore}`;
+  finalWrong.innerHTML = `${wrongScore}`;
   if (heartsCount == 3 && flag == 5) {
     const winAudio = document.getElementById('winAudio');
     winAudio.play();
@@ -116,6 +151,7 @@ function win() {
 }
 function gameComplete() {
   win();
+  resetLocalStorageAndCounters();
   followWhich.classList.add('d-none');
   end.classList.remove('d-none');
 }
@@ -131,25 +167,26 @@ function generateCards() {
     followWhich.classList.add('d-none');
     end.classList.remove('d-none');
   }
+  const correctIndex = Math.floor(Math.random() * cardCount); // Select a random index for the correct fruit
   for (let i = 0; i < cardCount; i++) {
     const questionColor = document.getElementById('questionColor');
-    questionColor.innerHTML = shuffledFruits[i].color
+    if (i === correctIndex) {
+      questionColor.innerHTML = shuffledFruits[i].color;
+    }
     const card = document.createElement('div');
     card.classList.add('col-6', 'col-sm-4', 'col-md-3', 'col-lg-2');
     const cardContent = `
-    <div class="card rounded-4 p-3 mb-3" id="${shuffledFruits[i].name}" onclick="selectFruit('${shuffledFruits[i].color}','${shuffledFruits[i].name}')">
-    <img src="./images/${shuffledFruits[i].image}" alt="${shuffledFruits[i].image}" class="w-100 rounded-4">
-  </div>
-
+      <div class="card rounded-4 p-3 mb-3" id="${shuffledFruits[i].name}" onclick="selectFruit('${shuffledFruits[i].color}','${shuffledFruits[i].name}')">
+        <img src="./images/${shuffledFruits[i].image}" alt="${shuffledFruits[i].image}" class="w-100 rounded-4">
+      </div>
     `;
     card.innerHTML = cardContent;
     cardsContainer.appendChild(card);
   }
-
 }
 
-const correctCount = document.getElementById('correctCount');
-const wrongCount = document.getElementById('wrongCount');
+
+
 
 const tryAgain = document.getElementById('tryAgain');
 const next = document.getElementById('next');
@@ -159,6 +196,9 @@ const tryAgainAudio = document.getElementById('tryAgainAudio');
 
 
 function correct(correctCard) {
+  setTimeout(() => {
+    nextButton();
+  }, 1000)
   console.log(correctCount);
   correctAudio.play();
   correctCard = document.getElementById(`${correctCard}`)
@@ -166,7 +206,7 @@ function correct(correctCard) {
   correctCard.classList.add('border-2');
   correctCard.classList.add('border-success')
   correctCount.innerHTML = `${++correctScore}`;
-  next.classList.remove('d-none');
+  // next.classList.remove('d-none');
 
 }
 function wrong(wrongCard) {
@@ -176,9 +216,7 @@ function wrong(wrongCard) {
   }
   tryAgainAudio.play();
   wrongCard = document.getElementById(`${wrongCard}`)
-  wrongCard.classList.add('border');
-  wrongCard.classList.add('border-2');
-  wrongCard.classList.add('border-danger')
+  wrongCard.classList.add('border', 'border-2', 'border-danger');
   wrongCount.innerHTML = `${++wrongScore}`;
   tryAgain.classList.remove('d-none');
 }
@@ -194,11 +232,11 @@ function selectFruit(fruitColor, fruitName) {
 }
 
 function nextButton() {
-  if (!tryAgain.classList.contains('d-none')) {
-    tryAgain.classList.add('d-none');
-  }
+  // if (!tryAgain.classList.contains('d-none')) {
+  //   tryAgain.classList.add('d-none');
+  // }
   cardCount++;
-  next.classList.add('d-none');
+  // next.classList.add('d-none');
   generateCards();
 }
 
@@ -216,6 +254,13 @@ function tryAgainButton() {
   generateCards();
 }
 
-generateHearts();
-generateCards();
+function resetLocalStorageAndCounters() {
+  localStorage.clear();
+  cardCount = 2;
+  heartsCount = 3;
+  correctScore = 0;
+  wrongScore = 0;
+}
+
+audios();
 audios();

@@ -47,7 +47,7 @@
 
 
   <div class="container-fluid">
-    <div id="followWhich">
+    <div id="followWhich" class="">
       <div class="d-flex align-items-cneter mb-3" id="header">
         <div class="d-block">
           <button class="pause_button border-0 bg-transparent" onclick="pauseClicked()" data-bs-toggle="modal"
@@ -61,10 +61,11 @@
             </div>
             <div class="d-flex me-3 fs-2 fw-bolder text-success">
               <i class="bi bi-check-lg"></i>
-              <span id="correctCount"></span>
+              <span id="correctCount">0</span>
             </div>
             <div class="d-flex fs-2 fw-bolder text-danger">
-              <i class="bi bi-x-lg"></i><span id="wrongCount"></span>
+              <i class="bi bi-x-lg"></i>
+              <span id="wrongCount">0</span>
             </div>
           </div>
         </div>
@@ -87,18 +88,33 @@
     </div>
 
     <div class="d-flex justify-content-center align-items-center d-none end_div" id="end">
-      <div class="d-block ">
-        <div class="d-flex">
-          <a href="#" class="custom_btn py-2 px-3 me-2" onclick="restart()"><i
-              class="bi bi-arrow-clockwise fs-2"></i></a>
-          <a id="homeButton" href="../../Home.html" class="custom_btn py-2 px-3" onclick="home()"><i
-              class="bi bi-house fs-2"></i></a>
+      <div class="d-block">
+        <div class="d-flex justify-content-center mb-4">
+          <div class="d-flex align-items-center me-3 fw-bold text-success">
+            <img src="images/correct_icon.svg" alt="correct_icon" class="me-2">
+            <span id="finalCorrect">0</span>
+          </div>
+          <div class="d-flex align-items-center fw-bold text-danger">
+            <img src="images/wrong_icon.svg" alt="wrong_icon" class="me-2">
+            <span id="finalWrong">0</span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center ">
+          <a href="#" class="custom_btn py-2 px-3 me-2 rounded-5" onclick="restart()"><i
+              class="bi bi-arrow-clockwise fs-2"></i>
+          </a>
+          <a id="homeButton" href="../../index.html" class="custom_btn py-2 px-3 rounded-5" onclick="home()"><i
+              class="bi bi-house fs-2"></i>
+          </a>
+
         </div>
       </div>
+
     </div>
   </div>
 
 
+  <img src="images/winGif.gif" alt="" class="gif d-none" id="winGif">
 
   <audio id="pause" src="../../audios/pause.mp3"></audio>
   <audio id="home" src="../../audios/home.mp3"></audio>
@@ -111,7 +127,6 @@
   <audio id="heartDeductedAudio" src="../../audios/heartDeducted.mp3"></audio>
 
   <audio id="winAudio" src="../../audios/win.mp3"></audio>
-
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

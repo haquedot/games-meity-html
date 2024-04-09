@@ -55,6 +55,23 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.end_div{
+.end_div {
+  position: relative;
   min-height: 100vh;
+}
+
+.end_div img {
+  width: 70px;
+}
+
+.end_div span {
+  font-size: 64px;
+}
+
+.gif{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: -1;
 }
