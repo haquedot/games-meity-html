@@ -24,7 +24,6 @@ window.addEventListener('load', function () {
   if (localStorage.getItem('wrongScore')) {
     wrongScore = parseInt(localStorage.getItem('wrongScore'));
   }
-
   generateHearts();
   correctCount.innerHTML = correctScore;
   wrongCount.innerHTML = wrongScore;
@@ -120,13 +119,21 @@ function restart() {
 }
 
 function generateHearts() {
+  
   const hearts = document.getElementById('hearts');
   hearts.innerHTML = '';
-  for (let i = 0; i < heartsCount; i++) {
+  
+  for (let i = 0; i < 3 - heartsCount; i++) {
     const heartDiv = document.createElement('div');
-    const oneHeart = `<i class="bi bi-heart-fill fs-2 me-1 text-danger"></i>`;
-    heartDiv.innerHTML = oneHeart;
+    const star = `<i class="bi bi-heart fs-2 me-1 text-danger"></i>`;
+    heartDiv.innerHTML = star;
     hearts.appendChild(heartDiv);
+  }
+  for (let i = 0; i < heartsCount; i++) {
+    const heartFillDiv = document.createElement('div');
+    const heartFill = `<i class="bi bi-heart-fill fs-2 me-1 text-danger"></i>`;
+    heartFillDiv.innerHTML = heartFill;
+    hearts.appendChild(heartFillDiv);
   }
 }
 
@@ -136,6 +143,23 @@ const finalCorrect = document.getElementById('finalCorrect');
 const finalWrong = document.getElementById('finalWrong');
 const winGif = document.getElementById('winGif');
 
+function generateStars() {
+  const stars = document.getElementById('stars');
+  stars.innerHTML = '';
+  for (let i = 0; i < heartsCount; i++) {
+    const starFillDiv = document.createElement('div');
+    const starFill = `<i class="bi bi-star-fill fs-2 me-1 text-warning"></i>`;
+    starFillDiv.innerHTML = starFill;
+    stars.appendChild(starFillDiv);
+  }
+  for (let i = 0; i < 3 - heartsCount; i++) {
+    const starDiv = document.createElement('div');
+    const star = `<i class="bi bi-star fs-2 me-1 text-warning"></i>`;
+    starDiv.innerHTML = star;
+    stars.appendChild(starDiv);
+  }
+}
+
 function win() {
   winGif.classList.remove('d-none')
 
@@ -144,20 +168,22 @@ function win() {
   }, 4000)
   finalCorrect.innerHTML = `${correctScore}`;
   finalWrong.innerHTML = `${wrongScore}`;
-  if (heartsCount == 3 && flag == 5) {
+  if (heartsCount == 3 && flag == 6) {
     const winAudio = document.getElementById('winAudio');
     winAudio.play();
   }
 }
 function gameComplete() {
+  // console.log(heartsCount);
   win();
+  generateStars();
   resetLocalStorageAndCounters();
   followWhich.classList.add('d-none');
   end.classList.remove('d-none');
 }
 function generateCards() {
   flag++;
-  if (flag == 5) {
+  if (flag == 6) {
     gameComplete();
   }
   const cardsContainer = document.getElementById('cards');
@@ -210,7 +236,8 @@ function correct(correctCard) {
 
 }
 function wrong(wrongCard) {
-  if (heartsCount == 1 || flag == 5) {
+  --heartsCount;
+  if (heartsCount == 0 || flag == 5) {
     gameComplete();
     return;
   }
@@ -218,7 +245,12 @@ function wrong(wrongCard) {
   wrongCard = document.getElementById(`${wrongCard}`)
   wrongCard.classList.add('border', 'border-2', 'border-danger');
   wrongCount.innerHTML = `${++wrongScore}`;
-  tryAgain.classList.remove('d-none');
+  // tryAgain.classList.remove('d-none');
+  setTimeout(() => {
+    tryAgainButton();
+  }, 1000)
+  generateStars();
+
 }
 
 function selectFruit(fruitColor, fruitName) {
@@ -241,15 +273,9 @@ function nextButton() {
 }
 
 function tryAgainButton() {
-  const heartDeductedAudio = document.getElementById('heartDeductedAudio');
-  if (heartsCount > 1) {
-    heartDeductedAudio.play();
-
-  }
-  heartsCount--;
-  tryAgain.classList.add('d-none');
-  next.classList.add('d-none');
-
+  console.log(heartsCount);
+  // tryAgain.classList.add('d-none');
+  // next.classList.add('d-none');
   generateHearts();
   generateCards();
 }
@@ -262,5 +288,4 @@ function resetLocalStorageAndCounters() {
   wrongScore = 0;
 }
 
-audios();
 audios();
