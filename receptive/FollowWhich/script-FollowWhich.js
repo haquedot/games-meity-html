@@ -224,7 +224,7 @@ const tryAgainAudio = document.getElementById('tryAgainAudio');
 function correct(correctCard) {
   setTimeout(() => {
     nextButton();
-  }, 1000)
+  }, 1000);
   console.log(correctCount);
   correctAudio.play();
   correctCard = document.getElementById(`${correctCard}`)
@@ -248,7 +248,7 @@ function wrong(wrongCard) {
   // tryAgain.classList.remove('d-none');
   setTimeout(() => {
     tryAgainButton();
-  }, 1000)
+  }, 1000);
   generateStars();
 
 }
