@@ -3,7 +3,7 @@ var heartsCount = 3;
 var correctScore = 0;
 var wrongScore = 0;
 var flag = 0;
-
+// Local storage 
 window.addEventListener('beforeunload', function () {
   localStorage.setItem('cardCount', cardCount.toString());
   localStorage.setItem('heartsCount', heartsCount.toString());
