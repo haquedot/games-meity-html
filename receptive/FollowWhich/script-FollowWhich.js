@@ -30,14 +30,6 @@ window.addEventListener('load', function () {
   generateCards();
 });
 
-// window.addEventListener('beforeunload', function () {
-//   localStorage.setItem('cardCount', cardCount.toString());
-//   localStorage.setItem('heartsCount', heartsCount.toString());
-//   localStorage.setItem('correctScore', correctScore.toString());
-//   localStorage.setItem('wrongScore', wrongScore.toString());
-// });
-
-
 function audios() {
   var pauseAudio = document.getElementById("pause");
   var pauseIcon = document.getElementById("pauseIcon");
@@ -174,7 +166,6 @@ function win() {
   }
 }
 function gameComplete() {
-  // console.log(heartsCount);
   win();
   generateStars();
   resetLocalStorageAndCounters();
