@@ -58,7 +58,6 @@ function pauseClicked() {
   var button = document.querySelector('.pause_button');
   var icon = button.querySelector('i');
 
-  // Toggle between pause and play icon
   if (icon.classList.contains('bi-pause-fill')) {
     icon.classList.remove('bi-pause-fill');
     icon.classList.add('bi-caret-right-fill');
@@ -184,7 +183,7 @@ function generateCards() {
     followWhich.classList.add('d-none');
     end.classList.remove('d-none');
   }
-  const correctIndex = Math.floor(Math.random() * cardCount); // Select a random index for the correct fruit
+  const correctIndex = Math.floor(Math.random() * cardCount); 
   for (let i = 0; i < cardCount; i++) {
     const questionColor = document.getElementById('questionColor');
     if (i === correctIndex) {
